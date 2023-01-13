@@ -27,21 +27,11 @@ public class User implements Serializable {
   @Column(name = "user_pass")
   private String userPass;
 
-//  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//  @JoinColumn(name = "FK_faceituser_id", referencedColumnName = "faceituser_id")
-//  private FaceitUser faceitUser;
-
   @JoinTable(name = "user_has_roles", joinColumns = {
     @JoinColumn(name = "FK_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
     @JoinColumn(name = "FK_role_id", referencedColumnName = "role_id")})
   @ManyToMany(cascade = CascadeType.PERSIST)
   private Set<Role> roleList = new LinkedHashSet<>();
-
-//  @JoinTable(name = "user_has_community", joinColumns = {
-//          @JoinColumn(name = "FK_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-//          @JoinColumn(name = "FK_community_id", referencedColumnName = "community_id")})
-//  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//  private Set<Community> communityList = new LinkedHashSet<>();
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
@@ -54,25 +44,6 @@ public class User implements Serializable {
     return rolesAsStrings;
   }
 
-//  public List<String> getCommunitiesAsStrings() {
-//    if (communityList.isEmpty()) {
-//      return null;
-//    }
-//    List<String> communitiesAsStrings = new ArrayList<>();
-//    communityList.forEach((community) -> {
-//      communitiesAsStrings.add(community.getCommunityName());
-//    });
-//    return communitiesAsStrings;
-//  }
-
-//  public Set<Community> getCommunityList() {
-//    return communityList;
-//  }
-
-//  public void setCommunityList(Set<Community> communityList) {
-//    this.communityList = communityList;
-//  }
-
   public User() {}
 
   //TODO Change when password is hashed
@@ -80,25 +51,10 @@ public class User implements Serializable {
         return BCrypt.checkpw(pw, userPass);
     }
 
-//  public User(String userName, String userPass, FaceitUser faceitUser) {
-//    this.userName = userName;
-//    this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt(10));
-//    this.faceitUser = faceitUser;
-//    faceitUser.setUser(this);
-//  }
-
   public User(String userName, String userPass) {
     this.userName = userName;
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt(10));
   }
-
-//  public FaceitUser getFaceitUser() {
-//    return faceitUser;
-//  }
-
-//  public void setFaceitUser(FaceitUser faceitUser) {
-//    this.faceitUser = faceitUser;
-//  }
 
   public int getUserId() {
     return userId;
@@ -137,16 +93,6 @@ public class User implements Serializable {
     this.roleList.add(userRole);
   }
 
-//  public void addFaceituser(FaceitUser faceitUser) {
-//    faceitUser.setUser(this);
-//    setFaceitUser(faceitUser);
-//  }
-
-//  public void addCommunity(Community community) {
-//    community.getUserList().add(this);
-//    this.communityList.add(community);
-//  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -160,15 +106,4 @@ public class User implements Serializable {
     return Objects.hash(getUserId());
   }
 
-//  @Override
-//  public String toString() {
-//    return "User{" +
-//            "userId=" + userId +
-//            ", userName='" + userName + '\'' +
-//            ", userPass='" + userPass + '\'' +
-//            ", faceitUser=" + faceitUser +
-//            ", roleList=" + roleList +
-//            ", communityList=" + communityList +
-//            '}';
-//  }
 }
