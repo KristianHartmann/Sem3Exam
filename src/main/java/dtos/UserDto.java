@@ -1,29 +1,56 @@
 package dtos;
 
+import security.entities.Role;
 import security.entities.User;
 
-public class UserDto {
-    private int id;
-    private String username;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
 
-    public UserDto(User user) {
-        this.id = user.getUserId();
-        this.username = user.getUserName();
+/**
+ * A DTO for the {@link security.entities.User} entity
+ */
+public class UserDto implements Serializable {
+    @NotNull
+    private final String userName;
+    @NotNull
+    private final String userPass;
+    @NotNull
+    private final String role;
+
+    public UserDto(User user, String role) {
+        this.userName = user.getUserName();
+        this.userPass = user.getUserPass();
+        this.role = role;
     }
 
-    public int getId() {
-        return id;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getUserPass() {
+        return userPass;
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDto entity = (UserDto) o;
+        return  Objects.equals(this.userName, entity.userName) &&
+                Objects.equals(this.userPass, entity.userPass);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, userPass);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "userName = " + userName + ", " +
+                "userPass = " + userPass + ")";
     }
 }

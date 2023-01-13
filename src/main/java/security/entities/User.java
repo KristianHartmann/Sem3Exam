@@ -9,17 +9,11 @@ import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 @Table(name = "user")
-@NamedQuery(name = "User.getHighestAI", query = "select max(u.userId) from User u")
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue (strategy = GenerationType.IDENTITY)
-  @NotNull
-  @Column(name = "user_id")
-  private int userId;
-
   @NotNull
   @Column(name = "user_name")
   private String userName;
@@ -28,7 +22,7 @@ public class User implements Serializable {
   private String userPass;
 
   @JoinTable(name = "user_has_roles", joinColumns = {
-    @JoinColumn(name = "FK_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+    @JoinColumn(name = "FK_user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
     @JoinColumn(name = "FK_role_id", referencedColumnName = "role_id")})
   @ManyToMany(cascade = CascadeType.PERSIST)
   private Set<Role> roleList = new LinkedHashSet<>();
@@ -56,13 +50,6 @@ public class User implements Serializable {
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt(10));
   }
 
-  public int getUserId() {
-    return userId;
-  }
-
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
 
   public String getUserName() {
     return userName;
@@ -98,12 +85,12 @@ public class User implements Serializable {
     if (this == o) return true;
     if (!(o instanceof User)) return false;
     User user = (User) o;
-    return getUserId() == user.getUserId();
+    return getUserName() == user.getUserName();
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getUserId());
+    return Objects.hash(getUserName());
   }
 
 }

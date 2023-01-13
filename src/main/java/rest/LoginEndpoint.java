@@ -1,4 +1,4 @@
-package security;
+package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import security.SharedSecret;
 import security.entities.User;
 import errorhandling.API_Exception;
 import javax.ws.rs.Consumes;
@@ -50,7 +52,7 @@ public class LoginEndpoint {
         }
 
         try {
-            User user = USER_FACADE.getVeryfiedUser(username, password);
+            User user = USER_FACADE.getVerifiedUser(username, password);
             String token = createToken(username, user.getRolesAsStrings());
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);

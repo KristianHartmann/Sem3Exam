@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dtos.UserDto;
+import security.entities.Role;
 import security.entities.User;
 
 import javax.persistence.EntityManager;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -45,9 +49,9 @@ public class UserFacade {
     }
 
 
-    public boolean remove(int id) {
+    public boolean remove(String user_name) {
         EntityManager em = emf.createEntityManager();
-        User user = em.find(User.class, id);
+        User user = em.find(User.class, user_name);
         try {
             em.getTransaction().begin();
             em.remove(user);
@@ -57,8 +61,23 @@ public class UserFacade {
             return false;
         }
     }
+  public List<UserDto> getAllUsers() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            List<User> users = em.createQuery("SELECT u FROM User u", User.class).getResultList();
+            List<UserDto> userDtos = new ArrayList<>();
+            for (User user : users) {
+                userDtos.add(new UserDto(user, user.getRolesAsStrings().get(0)));
+            }
+            em.getTransaction().commit();
+            return userDtos;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-    public User getVeryfiedUser(String username, String password) throws AuthenticationException {
+    public User getVerifiedUser(String username, String password) throws AuthenticationException {
         EntityManager em = emf.createEntityManager();
         User user;
         try {
@@ -72,36 +91,16 @@ public class UserFacade {
         return user;
     }
 
-    //    public User create(String name, String password, String faceitnickname) {
-//        FaceitUser faceitUser = new FaceitUser(faceitnickname, "idlalala13567");
-//        CommunityPlayer communityPlayer = new CommunityPlayer(faceitUser);
-//        Community community = new Community("abekattene");
-//        community.addCommunityPlayer(communityPlayer);
-//        User user = new User(name, password, faceitUser);
-//        user.addCommunity(community);
-//        EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
-//        em.persist(user);
-//        em.getTransaction().commit();
-//        return user;
-//    }
-
-    public static String getFaceitId(String faceitnickname) throws IOException, IndexOutOfBoundsException {
-        URL url = new URL("https://open.faceit.com/data/v4/search/players?nickname=" + faceitnickname + "&game=csgo&offset=0&limit=1");
-        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-        httpConn.setRequestMethod("GET");
-
-        httpConn.setRequestProperty("accept", "application/json");
-        httpConn.setRequestProperty("Authorization", "Bearer ad0be573-6f92-405a-a9c5-e5e59a062061");
-
-        InputStream responseStream = httpConn.getResponseCode() / 100 == 2
-                ? httpConn.getInputStream()
-                : httpConn.getErrorStream();
-        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
-        String response = s.hasNext() ? s.next() : "";
-        JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        return json.get("items").getAsJsonArray().get(0).getAsJsonObject().get("player_id").getAsString();
+        public User create(String name, String password, Role role) {
+        User user = new User(name, password);
+        user.addRole(role);
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
+        return user;
     }
+
 
     public static boolean checkUserExists(String username) {
         EntityManager em = EMF_Creator.createEntityManagerFactory().createEntityManager();
@@ -114,8 +113,15 @@ public class UserFacade {
         return false;
     }
 
-    public static void main(String[] args) throws IOException {
-        String test = UserFacade.getFaceitId("DirtyHarty");
-        System.out.println(test);
+    public static void main(String[] args) throws IOException, AuthenticationException {
+        EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactoryForTest();
+       UserFacade FACADE =  UserFacade.getUserFacade(EMF);
+
+       FACADE.create("Test Name", "Test PW", new Role("admin"));
+       User userExists = FACADE.getVerifiedUser("Test Name", "Test PW");
+       boolean test = FACADE.checkUserExists("Test Name");
+        System.out.printf("test" + test);
+        System.out.printf("User" + userExists.getUserName());
+        System.out.printf("User" + userExists.getUserPass());
     }
 }

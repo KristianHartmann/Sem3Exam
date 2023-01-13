@@ -1,11 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import dto.PlayerStatsDto;
-import entities.PlayerStats;
-import utils.HttpUtils;
-
 import java.io.*;
 
 public class PlayerStatsController {
