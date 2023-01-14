@@ -63,7 +63,7 @@ public class UserFacade {
             List<User> users = em.createQuery("SELECT u FROM User u", User.class).getResultList();
             List<UserDto> userDtos = new ArrayList<>();
             for (User user : users) {
-                userDtos.add(new UserDto(user, user.getRolesAsStrings().get(0)));
+                userDtos.add(new UserDto(user.getUserName(), user.getRolesAsStrings().get(0)));
             }
             em.getTransaction().commit();
             return userDtos;
@@ -96,7 +96,7 @@ public class UserFacade {
         } finally {
             em.close();
         }
-        UserDto userDto = new UserDto(user, user.getRolesAsStrings().get(0));
+        UserDto userDto = new UserDto(user.getUserName());
         return userDto;
     }
 

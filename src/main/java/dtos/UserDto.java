@@ -12,18 +12,39 @@ import java.util.Objects;
  */
 public class UserDto implements Serializable {
     @NotNull
-    private final String userName;
+    private String userName;
     @NotNull
-    private final String userPass;
+    private String userPass;
     @NotNull
-    private final String role;
+    private String role;
 
-    public UserDto(User user, String role) {
-        this.userName = user.getUserName();
-        this.userPass = user.getUserPass();
+    public UserDto(String userName, String role, String userPass) {
+        this.userName = userName;
+        this.role = role;
+    }
+    public UserDto(String userName) {
+        this.userName = userName;
+    }
+    public UserDto(String userName, String role) {
+        this.userName = userName;
         this.role = role;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getUserName() {
         return userName;
