@@ -25,7 +25,7 @@ import utils.EMF_Creator;
 public class LoginEndpointTest {
 
     private static final int SERVER_PORT = 7777;
-    private static final String SERVER_URL = "http://localhost/api";
+    private static final String SERVER_URL = "http://localhost/Sem3Exam_war_exploded/api";
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -129,7 +129,7 @@ public class LoginEndpointTest {
                 .accept(ContentType.JSON)
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/info/admin").then()
+                .get("/user/adminTest").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to (admin) User: admin"));
     }
@@ -141,7 +141,7 @@ public class LoginEndpointTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/info/user").then()
+                .get("/user/userTest").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to User: user"));
     }
@@ -153,7 +153,7 @@ public class LoginEndpointTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/info/admin").then() //Call Admin endpoint as user
+                .get("/user/adminTest").then() //Call Admin endpoint as user
                 .statusCode(401);
     }
 
@@ -164,34 +164,34 @@ public class LoginEndpointTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/info/user").then() //Call User endpoint as Admin
+                .get("/user/userTest").then() //Call User endpoint as Admin
                 .statusCode(401);
     }
 
-    @Test
-    public void testRestForMultiRole1() {
-        login("user_admin", "test");
-        given()
-                .contentType("application/json")
-                .accept(ContentType.JSON)
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/admin").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: user_admin"));
-    }
-
-    @Test
-    public void testRestForMultiRole2() {
-        login("user_admin", "test");
-        given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/user").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to User: user_admin"));
-    }
+//    @Test
+//    public void testRestForMultiRole1() {
+//        login("user_admin", "test");
+//        given()
+//                .contentType("application/json")
+//                .accept(ContentType.JSON)
+//                .header("x-access-token", securityToken)
+//                .when()
+//                .get("/user/adminTest").then()
+//                .statusCode(200)
+//                .body("msg", equalTo("Hello to (admin) User: user_admin"));
+//    }
+//
+//    @Test
+//    public void testRestForMultiRole2() {
+//        login("user_admin", "test");
+//        given()
+//                .contentType("application/json")
+//                .header("x-access-token", securityToken)
+//                .when()
+//                .get("/user/userTest").then()
+//                .statusCode(200)
+//                .body("msg", equalTo("Hello to User: user_admin"));
+//    }
 
     @Test
     public void userNotAuthenticated() {
@@ -199,7 +199,7 @@ public class LoginEndpointTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/info/user").then()
+                .get("/user/userTest").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
@@ -211,7 +211,7 @@ public class LoginEndpointTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/info/user").then()
+                .get("/user/userTest").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));

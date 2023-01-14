@@ -13,10 +13,6 @@ public class UserHasRoleId implements Serializable {
     @Column(name = "FK_role_id", nullable = false)
     private Integer fkRoleId;
 
-    @NotNull
-    @Column(name = "FK_user_id", nullable = false)
-    private Integer fkUserId;
-
     public Integer getFkRoleId() {
         return fkRoleId;
     }
@@ -25,12 +21,17 @@ public class UserHasRoleId implements Serializable {
         this.fkRoleId = fkRoleId;
     }
 
-    public Integer getFkUserId() {
-        return fkUserId;
+
+    @NotNull
+    @Column(name = "FK_user_name", nullable = false)
+    private String FK_user_name;
+
+    public String getFkUsername() {
+        return FK_user_name;
     }
 
-    public void setFkUserId(Integer fkUserId) {
-        this.fkUserId = fkUserId;
+    public void setFkUsername(String fkUsername) {
+        this.FK_user_name = fkUsername;
     }
 
     @Override
@@ -39,12 +40,12 @@ public class UserHasRoleId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         UserHasRoleId entity = (UserHasRoleId) o;
         return Objects.equals(this.fkRoleId, entity.fkRoleId) &&
-                Objects.equals(this.fkUserId, entity.fkUserId);
+                Objects.equals(this.FK_user_name, entity.FK_user_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fkRoleId, fkUserId);
+        return Objects.hash(fkRoleId, FK_user_name);
     }
 
 }
