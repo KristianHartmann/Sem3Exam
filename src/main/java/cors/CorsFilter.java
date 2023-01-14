@@ -33,6 +33,18 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
   @Override
   public void filter(ContainerRequestContext request, ContainerResponseContext response)
           throws IOException {
+
+      response.getHeaders().add(
+              "Access-Control-Allow-Origin", "*");
+      response.getHeaders().add(
+              "Access-Control-Allow-Credentials", "true");
+      response.getHeaders().add(
+              "Access-Control-Allow-Headers",
+              "origin, content-type, accept, authorization");
+      response.getHeaders().add(
+              "Access-Control-Allow-Methods",
+              "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
     // if there is no Origin header, then it is not a cross origin request - don't do anything.
     if (request.getHeaderString("Origin") == null) {
           return;

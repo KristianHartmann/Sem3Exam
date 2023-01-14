@@ -4,7 +4,6 @@ import com.google.gson.*;
 import dtos.UserDto;
 import facades.UserFacade;
 import security.entities.Role;
-import security.entities.User;
 import utils.EMF_Creator;
 
 import javax.annotation.security.RolesAllowed;
@@ -14,11 +13,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.ext.Provider;
-import java.util.ArrayList;
 import java.util.List;
 
-@Provider
 @Path("user")
 public class UserEndpoint {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
