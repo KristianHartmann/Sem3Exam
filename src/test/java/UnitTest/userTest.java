@@ -13,12 +13,15 @@ public class userTest {
 
 
 
-        EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactoryForTest();
-        UserFacade FACADE =  UserFacade.getUserFacade(EMF);
+    private static EntityManagerFactory emf;
 
 
         @Test
         public void testCreate() {
+            EMF_Creator.startREST_TestWithDB();
+            emf = EMF_Creator.createEntityManagerFactory();
+            UserFacade FACADE =  UserFacade.getUserFacade(emf);
+
             // Create a new role
             Role role = new Role("admin");
 
