@@ -9,7 +9,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class userTest {
+public class UserTest {
 
 
 
@@ -19,7 +19,7 @@ public class userTest {
         @Test
         public void testCreate() {
             EMF_Creator.startREST_TestWithDB();
-            emf = EMF_Creator.createEntityManagerFactory();
+            emf = EMF_Creator.createEntityManagerFactoryForTest();
             UserFacade FACADE =  UserFacade.getUserFacade(emf);
 
             // Create a new role
