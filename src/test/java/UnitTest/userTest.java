@@ -13,7 +13,7 @@ public class userTest {
 
 
 
-        EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactoryForTest();
+        EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
         UserFacade FACADE =  UserFacade.getUserFacade(EMF);
 
 
