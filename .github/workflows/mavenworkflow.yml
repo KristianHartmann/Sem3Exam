@@ -37,7 +37,7 @@ jobs:
       - name: Set up PW env variable
         run: echo "PW=${{ secrets.DBPW }}" >> $GITHUB_ENV
       - name: Set up CONNECTION_STR env variable
-        run: echo "CONNECTION_STR=jdbc:mysql://164.92.238.98/sem3examdb?serverTimezone=UTC" >> $GITHUB_ENV
+        run: echo "CONNECTION_STR=jdbc:mysql://164.92.238.98/" >> $GITHUB_ENV
       - name: mysql
         uses: mirromutth/mysql-action@v1.1
         with:
