@@ -59,7 +59,7 @@ public class UserEndpoint {
             return "something went wrong";
         }
     }
-    @GET
+    @POST
     @Path("user")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
