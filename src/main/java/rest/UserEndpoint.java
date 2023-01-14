@@ -54,10 +54,27 @@ public class UserEndpoint {
         }
         try {
             facade.create(username, password, new Role(role));
-            return "true";
+            return "created user";
         } catch (Exception e) {
-            return "false";
+            return "something went wrong";
         }
+    }
+    @GET
+    @Path("user")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response getUser(String prompt) {
+        JsonObject json = JsonParser.parseString(prompt).getAsJsonObject();
+        String username = json.get("username").getAsString();
+        if (facade.checkUserExists(username)){
+            try {
+                UserDto user = facade.getUser(username);
+                return Response.ok(GSON.toJson(user)).build();
+            } catch (Exception e) {
+                return Response.noContent().build();
+            }
+        }
+        return Response.noContent().build();
     }
 
     @POST

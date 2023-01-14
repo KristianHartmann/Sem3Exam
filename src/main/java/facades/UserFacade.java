@@ -90,6 +90,20 @@ public class UserFacade {
         }
         return user;
     }
+    public UserDto getUser(String username) throws AuthenticationException {
+        EntityManager em = emf.createEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
+            if (user == null) {
+                throw new AuthenticationException("User doesn't exist");
+            }
+        } finally {
+            em.close();
+        }
+        UserDto userDto = new UserDto(user, user.getRolesAsStrings().get(0));
+        return userDto;
+    }
 
         public User create(String name, String password, Role role) {
         User user = new User(name, password);
