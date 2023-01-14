@@ -46,7 +46,11 @@ public class EMF_Creator {
             String user = System.getenv("USER");
             String pw = System.getenv("PW");
             String dbName = getDbName(); //Gets the database name from pom.xml
-            String connection_str = System.getenv("CONNECTION_STR") + dbName; //Creates the full JDBC connection string
+            String puName = isTest || System.getProperty("IS_INTEGRATION_TEST_WITH_DB") != null ? "puTest" : "pu"; //Only legal names
+            if (puName.equals("puTest")) {
+                dbName = "sem3examdbtest";
+            }
+                String connection_str = System.getenv("CONNECTION_STR") + dbName; //Creates the full JDBC connection string
             Properties props = new Properties();
             props.setProperty("javax.persistence.jdbc.user", user);
             props.setProperty("javax.persistence.jdbc.password", pw);
