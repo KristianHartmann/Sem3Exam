@@ -30,6 +30,14 @@ jobs:
         #   mysql -u root -e "CREATE User 'dev'@'localhost' IDENTIFIED BY 'ax2'; GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
         #   mysql -u dev -pax2 -e "CREATE DATABASE IF NOT EXISTS startcode_test;"
         # run: mysql -h 127.0.0.1 --port 8888 -u dev -pax2 -e 'CREATE DATABASE IF NOT EXISTS startcode_test;'
+      - name: Set up DEPLOYED env variable
+        run: echo "DEPLOYED=true" >> $GITHUB_ENV
+      - name: Set up USER env variable
+        run: echo "USER=adminKristian" >> $GITHUB_ENV
+      - name: Set up PW env variable
+        run: echo "PW=${{ secrets.DBPW }}" >> $GITHUB_ENV
+#      - name: Set up CONNECTION_STR env variable
+#        run: echo "CONNECTION_STR=test" >> $GITHUB_ENV
       - name: mysql
         uses: mirromutth/mysql-action@v1.1
         with:
