@@ -11,6 +11,7 @@ import security.entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.ext.Provider;
 
 import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
@@ -26,6 +27,7 @@ import java.util.Scanner;
 /**
  * @author lam@cphbusiness.dk
  */
+@Provider
 public class UserFacade {
 
     private static EntityManagerFactory emf;
