@@ -13,6 +13,8 @@ jobs:
           DB_DATABASE: sem3examdb
           DB_USER: ${{ secrets.DBUSER }}
           DB_PASSWORD: ${{ secrets.DBPW }}
+          DEPLOYED: true
+          CONNECTION_STR: 164.92.238.98
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -21,8 +23,10 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt' # openjdk see the setup java action: https://github.com/actions/setup-java
-      - name: Set up DEPLOYED env variable
-        run: echo "DEPLOYED=true" >> $GITHUB_ENV
+#      - name: Set up DEPLOYED env variable
+#        run: echo "DEPLOYED=true" >> $GITHUB_ENV
+#      - name: Set up CONNECTION_STR env variable
+#        run: echo "CONNECTION_STR=164.92.238.98" >> $GITHUB_ENV
       - name: mysql
         uses: mirromutth/mysql-action@v1.1
         with:
