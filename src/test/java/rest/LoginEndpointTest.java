@@ -168,30 +168,30 @@ public class LoginEndpointTest {
                 .statusCode(401);
     }
 
-//    @Test
-//    public void testRestForMultiRole1() {
-//        login("user_admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .accept(ContentType.JSON)
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/user/adminTest").then()
-//                .statusCode(200)
+    @Test
+    public void testRestForMultiRole1() {
+        login("user_admin", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .get("/user/adminTest").then()
+                .statusCode(401);
 //                .body("msg", equalTo("Hello to (admin) User: user_admin"));
-//    }
-//
-//    @Test
-//    public void testRestForMultiRole2() {
-//        login("user_admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/user/userTest").then()
-//                .statusCode(200)
-//                .body("msg", equalTo("Hello to User: user_admin"));
-//    }
+    }
+
+    @Test
+    public void testRestForMultiRole2() {
+        login("user_admin", "test");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .get("/user/userTest").then()
+                .statusCode(200)
+                .body("msg", equalTo("Hello to User: user_admin"));
+    }
 
     @Test
     public void userNotAuthenticated() {
