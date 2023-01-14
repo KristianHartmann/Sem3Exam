@@ -1,8 +1,5 @@
 package dtos;
 
-import security.entities.Role;
-import security.entities.User;
-
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,26 +9,26 @@ import java.util.Objects;
  */
 public class UserDto implements Serializable {
     @NotNull
-    private String userName;
+    private String username;
     @NotNull
     private String userPass;
     @NotNull
     private String role;
 
     public UserDto(String userName, String role, String userPass) {
-        this.userName = userName;
+        this.username = userName;
         this.role = role;
     }
     public UserDto(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
     public UserDto(String userName, String role) {
-        this.userName = userName;
+        this.username = userName;
         this.role = role;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setUserPass(String userPass) {
@@ -46,8 +43,8 @@ public class UserDto implements Serializable {
         this.role = role;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getUserPass() {
@@ -59,19 +56,19 @@ public class UserDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDto entity = (UserDto) o;
-        return  Objects.equals(this.userName, entity.userName) &&
+        return  Objects.equals(this.username, entity.username) &&
                 Objects.equals(this.userPass, entity.userPass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName, userPass);
+        return Objects.hash(username, userPass);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
-                "userName = " + userName + ", " +
+                "userName = " + username + ", " +
                 "userPass = " + userPass + ")";
     }
 }
