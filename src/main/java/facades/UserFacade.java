@@ -2,8 +2,6 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import dtos.UserDto;
 import security.entities.Role;
 import security.entities.User;
@@ -11,23 +9,18 @@ import security.entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.ext.Provider;
 
 import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * @author lam@cphbusiness.dk
  */
-@Provider
+
 public class UserFacade {
 
     private static EntityManagerFactory emf;
