@@ -25,6 +25,7 @@ public class UserEndpoint {
     SecurityContext securityContext;
 
     @GET
+    @RolesAllowed("admin")
     @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllUsers(){

@@ -96,7 +96,7 @@ public class UserFacade {
         } finally {
             em.close();
         }
-        UserDto userDto = new UserDto(user.getUserName());
+        UserDto userDto = new UserDto(user.getUserName(), user.getRolesAsStrings().get(0));
         return userDto;
     }
 
