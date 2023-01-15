@@ -66,6 +66,7 @@ public class UserEndpoint {
     @Path("user")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed("admin")
     public Response getUser(String prompt) {
         JsonObject json = JsonParser.parseString(prompt).getAsJsonObject();
         String username = json.get("username").getAsString();
