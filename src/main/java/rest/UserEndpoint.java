@@ -46,7 +46,12 @@ public class UserEndpoint {
         JsonObject json = JsonParser.parseString(prompt).getAsJsonObject();
         String username = json.get("username").getAsString();
         String password = json.get("password").getAsString();
-        String role = json.get("role").getAsString();
+        String role;
+        if(json.get("role").getAsString() == null || !json.get("role").getAsString().isEmpty()){
+            role = "user";
+        } else {
+            role = json.get("role").getAsString();
+        }
         if (facade.checkUserExists(username)){
             return "user already exists";
         }
