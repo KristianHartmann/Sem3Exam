@@ -24,6 +24,11 @@ import javax.ws.rs.ext.Provider;
             responseContext.getHeaders().add(
                     "Access-Control-Allow-Methods",
                     "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+            responseContext.getHeaders().add(
+                    "Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization, x-access-token");
+            if(requestContext.getMethod().equals("OPTIONS"))
+                responseContext.setStatus(Response.Status.OK.getStatusCode());
         }
     }
 
