@@ -47,6 +47,9 @@ public class UserFacade {
     public boolean remove(String user_name) {
         EntityManager em = emf.createEntityManager();
         User user = em.find(User.class, user_name);
+        if(user == null){
+            return false;
+        }
         try {
             em.getTransaction().begin();
             em.remove(user);

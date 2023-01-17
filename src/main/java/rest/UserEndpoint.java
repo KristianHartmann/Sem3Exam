@@ -6,6 +6,7 @@ import facades.UserFacade;
 import security.entities.Role;
 import utils.EMF_Creator;
 
+import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.ws.rs.*;
@@ -25,7 +26,7 @@ public class UserEndpoint {
     SecurityContext securityContext;
 
     @GET
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin", "user"})
     @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllUsers(){
@@ -84,14 +85,17 @@ public class UserEndpoint {
 
     @POST
     @Path("remove")
+    @RolesAllowed("admin")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public boolean removeUser(String prompt) {
         JsonObject json = JsonParser.parseString(prompt).getAsJsonObject();
         String userName = json.get("username").getAsString();
         try {
-            facade.remove(userName);
-            return true;
+            if(facade.remove(userName)){
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             return false;
         }
