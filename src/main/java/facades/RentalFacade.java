@@ -49,6 +49,18 @@ public class RentalFacade {
             return null;
         }
     }
+    //for test
+    public Rental getRentalForTest(Integer rentalId) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Rental rental = em.find(Rental.class, rentalId);
+            em.getTransaction().commit();
+            return rental;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public List<RentalDto> getAllRentals() {
         EntityManager em = emf.createEntityManager();

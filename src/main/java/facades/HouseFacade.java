@@ -63,6 +63,15 @@ public class HouseFacade {
         return house;
     }
 
+    //for test
+    public House createHouseForTest(House house) throws AuthenticationException {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(house);
+        em.getTransaction().commit();
+        return house;
+    }
+
     public static void main(String[] args) throws AuthenticationException {
             EntityManager em = EMF_Creator.createEntityManagerFactory().createEntityManager();
             HouseFacade facade = HouseFacade.getHouseFacade(em.getEntityManagerFactory());

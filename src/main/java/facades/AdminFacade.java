@@ -10,6 +10,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -33,6 +34,24 @@ public class AdminFacade {
             instance = new AdminFacade();
         }
         return instance;
+    }
+
+    //for testing purposes
+    public House getHouseByAddress(String address) throws AuthenticationException {
+        EntityManager em = emf.createEntityManager();
+        House house;
+        try {
+            em.getTransaction().begin();
+            TypedQuery<House> query = em.createQuery("SELECT h FROM House h where h.address = :address", House.class)
+                    .setParameter("address", address);
+            house = query.getSingleResult();
+            if (house == null) {
+                throw new AuthenticationException("CityInfo Doesn't Exist");
+            }
+        } finally {
+            em.close();
+        }
+        return house;
     }
     public TenantsInHouseDto getTenantsInHouse(Integer houseID) {
 

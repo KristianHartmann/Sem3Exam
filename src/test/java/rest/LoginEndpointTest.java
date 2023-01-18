@@ -1,5 +1,6 @@
 package rest;
 
+import facades.Populator;
 import security.entities.User;
 import security.entities.Role;
 
@@ -30,6 +31,7 @@ public class LoginEndpointTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
+    Populator populator = new Populator();
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -65,9 +67,7 @@ public class LoginEndpointTest {
         try {
             em.getTransaction().begin();
             //Delete existing users and roles to get a "fresh" database
-            em.createNativeQuery("delete from user_has_roles").executeUpdate();
-            em.createQuery("delete from User").executeUpdate();
-            em.createQuery("delete from Role").executeUpdate();
+            populator.clearDatabase();
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");

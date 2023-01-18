@@ -1,8 +1,11 @@
 package UnitTest;
 
 import entities.*;
+import facades.Populator;
 import facades.TenantFacade;
 import facades.UserFacade;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import security.entities.Role;
 import security.entities.User;
@@ -19,6 +22,26 @@ public class TenantTest {
 
 
     private static EntityManagerFactory emf;
+
+    Populator populator = new Populator();
+    @BeforeAll
+    public static void setUpClass() {
+        //This method must be called before you request the EntityManagerFactory
+        EMF_Creator.startREST_TestWithDB();
+        emf = EMF_Creator.createEntityManagerFactoryForTest();
+    }
+    @BeforeEach
+    public void setUp() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            populator.clearDatabase();
+            populator.populateTestDatabase();
+        } finally {
+            em.close();
+        }
+
+    }
+
 
 
         @Test

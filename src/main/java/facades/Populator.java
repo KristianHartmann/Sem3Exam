@@ -22,12 +22,12 @@ import java.time.LocalDate;
 public class Populator {
 
     public void populateTestDatabase(){
-        LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
-        LocalDate dateNow = LocalDate.now();
-
 
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactoryForTest();
         EntityManager em = emf.createEntityManager();
+
+        LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
+        LocalDate dateNow = LocalDate.now();
         ContactPerson contactPerson = new ContactPerson("ContactPersonName", 11111111);
         Cityinfo cityinfo = new Cityinfo("Nordhavn", 2100);
         House house = new House("Address",  2);
@@ -35,6 +35,7 @@ public class Populator {
         User user = new User("Hess", "test");
         User admin = new User("Kristian", "test");
         Tenant tenant = new Tenant("Tenant", 11111111, "Developer");
+        Tenant tenant2 = new Tenant("2", 2222222, "Software");
         Role userRole = new Role("user");
         Role adminRole = new Role("admin");
 
@@ -52,10 +53,13 @@ public class Populator {
         em.merge(house);
         rental.addContactPerson(contactPerson);
         rental.addHouse(house);
-        em.merge(rental);
         tenant.addUser(user);
-//        tenant.addRental(rental);
+        tenant2.addUser(admin);
+        tenant.addRental(rental);
         em.merge(tenant);
+        em.merge(tenant2);
+        rental.addTenant(tenant);
+        em.merge(rental);
         em.getTransaction().commit();
         System.out.println("Created Objects");
     }
