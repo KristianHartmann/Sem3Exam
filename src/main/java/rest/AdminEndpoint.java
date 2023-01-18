@@ -42,7 +42,7 @@ public class AdminEndpoint {
         TenantsInHouseDto tenantsInHouseDto =  adminFacade.getTenantsInHouse(houseId);
 
         if(tenantsInHouseDto == null){
-            return Response.serverError().build();
+            return Response.noContent().build();
         }
         try {
             return Response.ok(GSON.toJson(tenantsInHouseDto)).build();

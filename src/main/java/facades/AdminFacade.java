@@ -39,7 +39,7 @@ public class AdminFacade {
         try {
             em.getTransaction().begin();
             House house = em.find(House.class, houseID);
-            Rental rental = rentalFacade.rentalHouseExists(houseID);
+            Rental rental = rentalFacade.rentalHouseExistsGet(houseID);
             Set<Tenant> tenantList = rental.getTenants();
             CityInfoDto cityInfoDto = new CityInfoDto(house.getCityinfo().getCityname(), house.getCityinfo().getZip());
             HouseDto houseDto = new HouseDto(house.getAddress(), house.getNumberOfRooms(), cityInfoDto);
@@ -57,7 +57,8 @@ public class AdminFacade {
     public Rental createRental(String startDate, String endDate, Integer priceAnnual, Integer deposit, Integer contactPersonID, Integer houseId, List<String> tenantNames) throws AuthenticationException {
 
         House house = houseFacade.getHouse(houseId);
-        if(rentalFacade.rentalHouseExists(houseId) != null){
+        //if there exists a rental on the house return null
+        if(rentalFacade.rentalHouseExists(house.getId())){
             return null;
         }
         ContactPerson contactPerson = contactPersonFacade.getContactPerson(contactPersonID);

@@ -8,6 +8,7 @@ import entities.Tenant;
 import entities.TenantHasRental;
 import rest.AdminEndpoint;
 import security.entities.User;
+import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -22,6 +23,7 @@ public class RentalFacade {
     private static RentalFacade instance;
     EntityManager em = EMF_Creator.createEntityManagerFactory().createEntityManager();
 
+    TenantFacade tenantFacade = TenantFacade.getTenantFacade(em.getEntityManagerFactory());
 
 
     public static RentalFacade getRentalFacade(EntityManagerFactory _emf) {
@@ -65,12 +67,25 @@ public class RentalFacade {
         }
     }
 
-    public Rental rentalHouseExists(Integer houseId) {
+    public boolean rentalHouseExists(Integer houseId) throws AuthenticationException {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r where r.house.id = :houseId", Rental.class)
                             .setParameter("houseId", houseId);
+            Rental rental = query.getSingleResult();
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public Rental rentalHouseExistsGet(Integer houseId) throws AuthenticationException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r where r.house.id = :houseId", Rental.class)
+                    .setParameter("houseId", houseId);
             Rental rental = query.getSingleResult();
             em.getTransaction().commit();
             return rental;
@@ -80,13 +95,14 @@ public class RentalFacade {
     }
 
 
-    public List<RentalDto> getRentalsByTenant(Integer tenantId) {
+
+    public List<RentalDto> getRentalsByTenant(String username) {
         EntityManager em = emf.createEntityManager();
         List<RentalDto> rentalDtos = new ArrayList<>();
 
         try {
             em.getTransaction().begin();
-            Tenant tenant = em.find(Tenant.class, tenantId);
+            Tenant tenant = tenantFacade.getTenantByUsername(username);
             for (Rental rental : tenant.getRentalList()) {
                 rentalDtos.add(getRental(rental.getId()));
             }
@@ -101,7 +117,6 @@ public class RentalFacade {
         EntityManager em = EMF_Creator.createEntityManagerFactory().createEntityManager();
         RentalFacade facade = RentalFacade.getRentalFacade(em.getEntityManagerFactory());
 //        RentalDto dto = facade.getRental(2);
-        List<RentalDto> dto = facade.getRentalsByTenant(1);
         System.out.println("Yay");
     }
 
