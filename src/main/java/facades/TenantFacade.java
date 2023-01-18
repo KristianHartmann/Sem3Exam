@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.RentalDto;
 import entities.Rental;
 import entities.Tenant;
 import security.entities.Role;
@@ -10,6 +11,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import java.util.List;
 
 public class TenantFacade {
 
@@ -33,7 +35,7 @@ public class TenantFacade {
         tenant.addUser(user);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(tenant);
+        em.merge(tenant);
         em.getTransaction().commit();
         return tenant;
     }
@@ -51,13 +53,12 @@ public class TenantFacade {
         }
     }
 
-
     public boolean addRentalToTenant(Tenant tenant, Rental rental){
         try{
             tenant.addRental(rental);
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.persist(tenant);
+            em.merge(tenant);
             em.getTransaction().commit();
             return true;
         }catch (Exception e){

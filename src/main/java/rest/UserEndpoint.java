@@ -6,7 +6,6 @@ import facades.UserFacade;
 import security.entities.Role;
 import utils.EMF_Creator;
 
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.ws.rs.*;
@@ -58,7 +57,7 @@ public class UserEndpoint {
             return "user already exists";
         }
         try {
-            facade.create(username, password, new Role(role));
+            facade.createUser(username, password, new Role(role));
             return "created user";
         } catch (Exception e) {
             return "something went wrong";

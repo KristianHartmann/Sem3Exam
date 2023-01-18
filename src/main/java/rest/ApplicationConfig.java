@@ -34,6 +34,7 @@ public class ApplicationConfig extends Application {
 //        resources.add(rest.PlayerStatsResource.class);
         resources.add(rest.TenantEndpoint.class);
         resources.add(rest.RentalEndpint.class);
+        resources.add(rest.AdminEndpoint.class);
     }
     
 }

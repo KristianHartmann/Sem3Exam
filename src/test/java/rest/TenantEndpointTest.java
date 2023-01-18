@@ -31,7 +31,6 @@ import utils.EMF_Creator;
 public class TenantEndpointTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/Sem3Exam_war_exploded/api";
-
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
@@ -88,33 +87,34 @@ public class TenantEndpointTest {
 
 
             em.getTransaction().begin();
+
+            em.createNativeQuery("delete from Tenant_Has_Rental ").executeUpdate();
+            em.createQuery("delete from Tenant ").executeUpdate();
+            em.createQuery("delete from Rental ").executeUpdate();
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
             em.createNativeQuery("delete from user_has_roles").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
-            em.createNativeQuery("delete from Tenant_Has_Rental ").executeUpdate();
-            em.createQuery("delete from Tenant ").executeUpdate();
-            em.createQuery("delete from Rental ").executeUpdate();
             em.createQuery("delete from ContactPerson").executeUpdate();
             em.createQuery("delete from Cityinfo").executeUpdate();
             em.createQuery("delete from House").executeUpdate();
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
             user.addRole(userRole);
             admin.addRole(adminRole);
-            em.persist(userRole);
-            em.persist(adminRole);
-            em.persist(user);
-            em.persist(admin);
-            em.persist(cityinfo);
-            em.persist(contactPerson);
+            em.merge(userRole);
+            em.merge(adminRole);
+            em.merge(user);
+            em.merge(admin);
+            em.merge(cityinfo);
+            em.merge(contactPerson);
             house.addCityinfo(cityinfo);
-            em.persist(house);
+            em.merge(house);
             rental.addContactPerson(contactPerson);
             rental.addHouse(house);
-            em.persist(rental);
+            em.merge(rental);
             tenant.addUser(user);
             tenant.addRental(rental);
-            em.persist(tenant);
+            em.merge(tenant);
             em.getTransaction().commit();
             System.out.println("Created Objects");
         } finally {

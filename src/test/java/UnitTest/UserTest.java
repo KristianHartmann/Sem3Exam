@@ -26,7 +26,7 @@ public class UserTest {
             Role role = new Role("admin");
 
             // Create a new user
-            User user = FACADE.create("John", "password", role);
+            User user = FACADE.createUser("John", "password", role);
 
             // Assert that the user's name and password are correct
             assertEquals("John", user.getUserName());

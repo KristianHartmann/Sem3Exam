@@ -73,8 +73,17 @@ public class Rental {
         return tenants;
     }
 
+
+
     public void setTenants(Set<Tenant> tenants) {
         this.tenants = tenants;
+    }
+    public void addTenant(Tenant tenant) {
+        tenant.getRentalList().add(this);
+        this.tenants.add(tenant);
+    }
+    public void removeTenants() {
+        this.tenants.clear();
     }
 
     public void setHouse(House house) {

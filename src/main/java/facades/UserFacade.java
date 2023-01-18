@@ -103,12 +103,12 @@ public class UserFacade {
         return userDto;
     }
 
-        public User create(String name, String password, Role role) {
+        public User createUser(String name, String password, Role role) {
         User user = new User(name, password);
         user.addRole(role);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(user);
+        em.merge(user);
         em.getTransaction().commit();
         return user;
     }
@@ -129,7 +129,7 @@ public class UserFacade {
         EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactoryForTest();
        UserFacade FACADE =  UserFacade.getUserFacade(EMF);
 
-       FACADE.create("Test Name", "Test PW", new Role("admin"));
+       FACADE.createUser("Test Name", "Test PW", new Role("admin"));
        User userExists = FACADE.getVerifiedUser("Test Name", "Test PW");
        boolean test = FACADE.checkUserExists("Test Name");
         System.out.printf("test" + test);

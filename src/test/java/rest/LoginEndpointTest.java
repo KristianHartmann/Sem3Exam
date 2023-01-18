@@ -77,9 +77,9 @@ public class LoginEndpointTest {
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
-            em.persist(user);
-            em.persist(admin);
-            em.persist(both);
+            em.merge(user);
+            em.merge(admin);
+            em.merge(both);
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();
         } finally {

@@ -83,6 +83,10 @@ public class Tenant {
         rental.getTenants().add(this);
         this.rentalList.add(rental);
     }
+  public void removeRental(Rental rental) {
+        rental.getTenants().remove(this);
+        this.rentalList.remove(rental);
+    }
 
 
 

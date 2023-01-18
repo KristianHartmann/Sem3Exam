@@ -4,6 +4,7 @@ package dtos;
 public class RentalDto {
 
 
+    private Integer rentalId;
     private Integer deposit;
     private String endDate;
     private Integer priceAnnual;
@@ -12,7 +13,8 @@ public class RentalDto {
     private ContactPersonDto contactPersonDto;
     private HouseDto houseDto;
 
-    public RentalDto(Integer deposit, String endDate, Integer priceAnnual, String startDate, ContactPersonDto contactPersonDto, HouseDto houseDto) {
+    public RentalDto(Integer rentalId, Integer deposit, String endDate, Integer priceAnnual, String startDate, ContactPersonDto contactPersonDto, HouseDto houseDto) {
+        this.rentalId = rentalId;
         this.deposit = deposit;
         this.endDate = endDate;
         this.priceAnnual = priceAnnual;

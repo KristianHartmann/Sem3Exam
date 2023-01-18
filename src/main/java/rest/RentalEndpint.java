@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("rental")
 public class RentalEndpint {
@@ -35,6 +36,20 @@ public class RentalEndpint {
         Integer rentalId = json.get("rentalId").getAsInt();
             try {
                 RentalDto rentalDto = rentalFacade.getRental(rentalId);
+                return Response.ok(GSON.toJson(rentalDto)).build();
+            } catch (Exception e) {
+                return Response.noContent().build();
+        }
+    }
+    @POST
+    @Path("tentantRental")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response getAllRentals(String prompt) {
+        JsonObject json = JsonParser.parseString(prompt).getAsJsonObject();
+        Integer tenantId = json.get("tentantId").getAsInt();
+            try {
+                List<RentalDto> rentalDto = rentalFacade.getRentalsByTenant(tenantId);
                 return Response.ok(GSON.toJson(rentalDto)).build();
             } catch (Exception e) {
                 return Response.noContent().build();
