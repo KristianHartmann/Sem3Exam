@@ -9,6 +9,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -79,23 +80,39 @@ public class AdminFacade {
     }
 
 
-    public boolean changeTenantsForRental(List<String> tenantNames, Integer rentalID) {
+    public Rental updateRentalInformation(Integer rentalId, String startDate, String endDate, Integer priceAnnual, Integer deposit, Integer contactPersonId, Integer houseId) throws AuthenticationException {
+        Rental rental = em.find(Rental.class, rentalId);
+        ContactPerson contactPerson  = contactPersonFacade.getContactPerson(contactPersonId);
+        House house = houseFacade.getHouse(houseId);
+        rental.setStartDate(startDate);
+        rental.setEndDate(endDate);
+        rental.setPriceAnnual(priceAnnual);
+        rental.setDeposit(deposit);
+        rental.setContactPerson(contactPerson);
+        rental.setHouse(house);
+
+        em.getTransaction().begin();
+        em.merge(rental);
+        em.getTransaction().commit();
+
+        return rental;
+    }
+
+    public Rental changeTenantsForRental(List<String> tenantNames, Integer rentalID) {
         Set<Tenant> tenantList = new LinkedHashSet<>();
 
         try {
             em.getTransaction().begin();
             Rental rental = em.find(Rental.class, rentalID);
+
             if (rental != null) {
                 // remove existing relationships between the rental and the tenants
-                Set<Tenant> currentTenants = rental.getTenants();
-                Set<Tenant> oldTenants = new HashSet<>(currentTenants);
-                for (Tenant tenant : currentTenants) {
-                    TenantHasRentalId id = new TenantHasRentalId();
-                    id.setTenantIdtenant(tenant.getId());
-                    id.setRentalIdrental(rental.getId());
-                    TenantHasRental tenantHasRental = em.find(TenantHasRental.class, id);
-                    em.remove(tenantHasRental);
-                }
+                int currentRentalId = rental.getId();
+                Query query = em.createQuery("DELETE from TenantHasRental t WHERE t.id.rentalIdrental = :currentRentalId")
+                        .setParameter("currentRentalId", currentRentalId);
+                query.executeUpdate();
+
+
                 rental.removeTenants();
                 // add new relationships between the rental and the tenants
                 for (String tenant : tenantNames) {
@@ -107,20 +124,20 @@ public class AdminFacade {
                         id.setRentalIdrental(rental.getId());
                         TenantHasRental tenantHasRental = new TenantHasRental();
                         tenantHasRental.setId(id);
-                        em.persist(tenantHasRental);
+                        em.merge(tenantHasRental);
                         rental.addTenant(t);
                     }
 
                 }
                 em.merge(rental);
                 em.getTransaction().commit();
-                return true;
+                return rental;
             } else {
-                return false;
+                return null;
             }
 
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
@@ -144,10 +161,10 @@ public class AdminFacade {
         LocalDate dateNow = LocalDate.now();
         List<String> tenantNames = new ArrayList<>();
         tenantNames.add("Hess");
-        tenantNames.add("KristianTenant");
-        facade.createRental(dateNow.toString(), date1YearFromNow.toString(), 1000, 10000, 2, 2, tenantNames);
-//        facade.changeTenantsForRental(tenantNames, 9);
-        //        facade.removeRental(2);
+//        tenantNames.add("KristianTenant");
+//        facade.createRental(dateNow.toString(), date1YearFromNow.toString(), 1000, 10000, 2, 2, tenantNames);
+        facade.changeTenantsForRental(tenantNames, 9);
+//                facade.removeRental(2);
         System.out.println("Yay");
     }
 

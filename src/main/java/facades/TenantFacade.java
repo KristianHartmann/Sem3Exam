@@ -32,6 +32,7 @@ public class TenantFacade {
 
     public Tenant createTenant(User user, String name, Integer phone, String job) throws AuthenticationException {
         Tenant tenant = new Tenant(name, phone, job);
+        user.addRole(new Role("user"));
         tenant.addUser(user);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();

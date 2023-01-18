@@ -3,6 +3,7 @@ package facades;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.UserDto;
+import entities.Tenant;
 import security.entities.Role;
 import security.entities.User;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class UserFacade {
 
     private static EntityManagerFactory emf;
+
     private static UserFacade instance;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -50,6 +52,13 @@ public class UserFacade {
         if(user == null){
             return false;
         }
+        TenantFacade tenantFacade = TenantFacade.getTenantFacade(em.getEntityManagerFactory());
+        Tenant tenant = tenantFacade.getTenantByUsername(user_name);
+
+        if(tenant != null){
+            em.remove(em.merge(tenant));
+        }
+
         try {
             em.getTransaction().begin();
             em.remove(user);

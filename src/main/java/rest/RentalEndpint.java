@@ -13,10 +13,7 @@ import utils.EMF_Creator;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -55,5 +52,19 @@ public class RentalEndpint {
                 return Response.noContent().build();
         }
     }
+
+    @GET
+    @RolesAllowed("admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllRentals(){
+        EntityManager em = EMF_Creator.createEntityManagerFactory().createEntityManager();
+        List<RentalDto> rentalDtos = rentalFacade.getAllRentals();
+        try {
+            return Response.ok(GSON.toJson(rentalDtos)).build();
+        } finally {
+            em.close();
+        }
+    }
+
 
 }
