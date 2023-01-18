@@ -64,18 +64,18 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactoryForTest();
         EntityManager em = emf.createEntityManager();
         try {
+            //Delete to get a "fresh" database
             em.getTransaction().begin();
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
-            //Delete to get a "fresh" database
             em.createNativeQuery("delete from user_has_roles").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
             em.createNativeQuery("delete from Tenant_Has_Rental ").executeUpdate();
             em.createQuery("delete from Tenant ").executeUpdate();
             em.createQuery("delete from Rental ").executeUpdate();
-            em.createQuery("delete from ContactPerson ").executeUpdate();
-            em.createQuery("delete from Cityinfo ").executeUpdate();
-            em.createQuery("delete from House ").executeUpdate();
+            em.createQuery("delete from ContactPerson").executeUpdate();
+            em.createQuery("delete from Cityinfo").executeUpdate();
+            em.createQuery("delete from House").executeUpdate();
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();

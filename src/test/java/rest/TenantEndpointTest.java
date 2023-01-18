@@ -71,7 +71,7 @@ public class TenantEndpointTest {
         EntityManager em = emf.createEntityManager();
         Populator populator = new Populator();
         try {
-            populator.clearDatabase();
+//            populator.clearDatabase();
            populator.populateTestDatabase();;
         } finally {
             em.close();
