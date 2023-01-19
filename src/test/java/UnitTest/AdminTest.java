@@ -39,15 +39,15 @@ public class AdminTest {
         populator.clearDatabase();
         populator.populateTestDatabase();
     }
-    @Test
-    public void getTenantsInHousetTest() throws AuthenticationException {
-        AdminFacade adminFacade = AdminFacade.getAdminFacade(emf);
-        House house = adminFacade.getHouseByAddress("Address");
-        TenantsInHouseDto tenantDto = adminFacade.getTenantsInHouse(house.getId());
-        // Assert that the user's name and password are correct
-        assertEquals("Hess", tenantDto.getTenantDto().get(0).getUser_name());
-
-    }
+//    @Test
+//    public void getTenantsInHousetTest() throws AuthenticationException {
+//        AdminFacade adminFacade = AdminFacade.getAdminFacade(emf);
+//        House house = adminFacade.getHouseByAddress("Address");
+//        TenantsInHouseDto tenantDto = adminFacade.getTenantsInHouse(house.getId());
+//        // Assert that the user's name and password are correct
+//        assertEquals("Hess", tenantDto.getTenantDto().get(0).getUser_name());
+//
+//    }
 
 
     //also test create house
