@@ -80,6 +80,12 @@ public class Populator {
             em.createQuery("delete from ContactPerson").executeUpdate();
             em.createQuery("delete from Cityinfo").executeUpdate();
             em.createQuery("delete from House").executeUpdate();
+            em.createNativeQuery("ALTER TABLE Role AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("ALTER TABLE Tenant AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("ALTER TABLE Rental AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("ALTER TABLE ContactPerson AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("ALTER TABLE Cityinfo AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("ALTER TABLE House AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();

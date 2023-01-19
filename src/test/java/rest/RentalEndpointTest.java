@@ -1,34 +1,26 @@
 package rest;
 
-
-import entities.*;
 import facades.Populator;
-import facades.TenantFacade;
-import security.entities.User;
-import security.entities.Role;
-
 import io.restassured.RestAssured;
-import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
-import java.net.URI;
-import java.time.LocalDate;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
-public class TenantEndpointTest {
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
+
+import static io.restassured.RestAssured.given;
+
+public class RentalEndpointTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/Sem3Exam_war_exploded/api";
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
@@ -69,8 +61,8 @@ public class TenantEndpointTest {
         Populator populator = new Populator();
         try {
 
-        populator.clearDatabase();
-        populator.populateTestDatabase();
+            populator.clearDatabase();
+            populator.populateTestDatabase();
 
         } finally {
             em.close();
@@ -83,24 +75,54 @@ public class TenantEndpointTest {
         given().when().get("/info").then().extract().path("token");
     }
 
+    private static void login(String username, String password) {
+        String json = String.format("{username: \"%s\", password: \"%s\"}", username, password);
+        securityToken = given()
+                .contentType("application/json")
+                .body(json)
+                //.when().post("/api/login")
+                .when().post("/login")
+                .then()
+                .extract().path("token");
+        //System.out.println("TOKEN ---> " + securityToken);
+    }
     @Test
-    public void testCreateTenant() {
-        String tenantJson = "{\n" +
-                "    \"username\":\"testuser\",\n" +
-                "    \"password\":\"test\",\n" +
-                "    \"name\":\"testname\",\n" +
-                "    \"phone\" : 11111111,\n" +
-                "    \"job\" : \"testjob\",\n" +
-                "    \"role\":\"admin\"\n" +
-                "}";
+    public void getRentalById() {
+        login("Kristian", "test");
         given()
                 .contentType("application/json")
-                .body(tenantJson)
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .body("{\"rentalId\": 1}")
                 .when()
-                .post("/tenant/create")
+                .post("/rental/rental")
                 .then()
                 .statusCode(200);
     }
+    @Test
+    public void testGetRentalByTenant() {
+        login("Kristian", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .body("{ \"username\": \"Hess\"}")
+                .when()
+                .post("/rental/tentantRental")
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    public void testGetAllRentals() {
+        login("Kristian", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .get("/rental/all")
+                .then()
+                .statusCode(200);
 
-
+    }
 }

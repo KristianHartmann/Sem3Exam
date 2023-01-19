@@ -37,23 +37,13 @@ public class AdminTest {
     }
     @BeforeEach
     public void setUp() {
-        EntityManager em = emf.createEntityManager();
-        try {
         populator.clearDatabase();
         populator.populateTestDatabase();
-        } finally {
-            em.close();
-        }
-
     }
     @Test
     public void getTenantsInHousetTest() throws AuthenticationException {
-        EMF_Creator.startREST_TestWithDB();
-        emf = EMF_Creator.createEntityManagerFactoryForTest();
         AdminFacade adminFacade = AdminFacade.getAdminFacade(emf);
-
         House house = adminFacade.getHouseByAddress("Address");
-
         TenantsInHouseDto tenantDto = adminFacade.getTenantsInHouse(house.getId());
         // Assert that the user's name and password are correct
         assertEquals("Hess", tenantDto.getTenantDto().get(0).getUser_name());
@@ -64,8 +54,6 @@ public class AdminTest {
     //also test create house
     @Test
     public void testCreateRental() throws AuthenticationException {
-        EMF_Creator.startREST_TestWithDB();
-        emf = EMF_Creator.createEntityManagerFactoryForTest();
         AdminFacade adminFacade =  AdminFacade.getAdminFacade(emf);
         LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
         LocalDate dateNow = LocalDate.now();
@@ -87,8 +75,6 @@ public class AdminTest {
     }
     @Test
     public void testUpdateRental() throws AuthenticationException {
-        EMF_Creator.startREST_TestWithDB();
-        emf = EMF_Creator.createEntityManagerFactoryForTest();
         AdminFacade adminFacade =  AdminFacade.getAdminFacade(emf);
         LocalDate date2YearFromNow = LocalDate.now().plusYears(2);
         LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
@@ -104,25 +90,9 @@ public class AdminTest {
         assertTrue(!rental.getTenants().isEmpty());
     }
 
-    @Test
-    public void testRemoveRental() throws AuthenticationException {
-        EMF_Creator.startREST_TestWithDB();
-        emf = EMF_Creator.createEntityManagerFactoryForTest();
-        AdminFacade adminFacade =  AdminFacade.getAdminFacade(emf);
-        RentalFacade rentalFacade =  RentalFacade.getRentalFacade(emf);
 
-        RentalDto rental = rentalFacade.getRental(1);
-        if(rental != null){
-            adminFacade.removeRental(1);
-        }
-
-        assertEquals(null, rentalFacade.getRental(1));
-
-    }
     @Test
     public void testUpdateTenants() throws AuthenticationException {
-        EMF_Creator.startREST_TestWithDB();
-        emf = EMF_Creator.createEntityManagerFactoryForTest();
         AdminFacade adminFacade =  AdminFacade.getAdminFacade(emf);
         List<String> updateTenant = new ArrayList<>();
         updateTenant.add("Kristian");
@@ -135,6 +105,20 @@ public class AdminTest {
             tenantInRental = tenant.getUser().getUserName();
         }
         assertEquals("Kristian",tenantInRental );
+
+    }
+
+    @Test
+    public void testRemoveRental() throws AuthenticationException {
+        AdminFacade adminFacade =  AdminFacade.getAdminFacade(emf);
+        RentalFacade rentalFacade =  RentalFacade.getRentalFacade(emf);
+
+        RentalDto rental = rentalFacade.getRental(1);
+        if(rental != null){
+            adminFacade.removeRental(1);
+        }
+
+        assertEquals(null, rentalFacade.getRental(1));
 
     }
 
