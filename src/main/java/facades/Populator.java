@@ -13,6 +13,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 import java.time.LocalDate;
 
 /**
@@ -27,8 +28,6 @@ public class Populator {
         EntityManager em = emf.createEntityManager();
 
         try{
-
-
         LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
         LocalDate dateNow = LocalDate.now();
         ContactPerson contactPerson = new ContactPerson("ContactPersonName", 11111111);
@@ -68,11 +67,9 @@ public class Populator {
         em.getTransaction().commit();
         em.close();
         System.out.println("Created Objects");
-        }catch (Exception e){
+        }catch (PersistenceException e) {
             em.getTransaction().rollback();
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -101,10 +98,9 @@ public class Populator {
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();
-        } catch(Exception e){
+        } catch (PersistenceException e) {
             em.getTransaction().rollback();
-        } finally{
-            em.close();
+            throw e;
         }
     }
 
