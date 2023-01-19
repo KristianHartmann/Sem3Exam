@@ -32,14 +32,8 @@ public class TenantTest {
     }
     @BeforeEach
     public void setUp() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            populator.clearDatabase();
-            populator.populateTestDatabase();
-        } finally {
-            em.close();
-        }
-
+        populator.clearDatabase();
+        populator.populateTestDatabase();
     }
 
 

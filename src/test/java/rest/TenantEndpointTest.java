@@ -65,17 +65,9 @@ public class TenantEndpointTest {
     //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
     @BeforeEach
     public void setUp() {
-        EntityManager em = emf.createEntityManager();
         Populator populator = new Populator();
-        try {
-
         populator.clearDatabase();
         populator.populateTestDatabase();
-
-        } finally {
-            em.close();
-        }
-
     }
     private static String securityToken;
     @Test
