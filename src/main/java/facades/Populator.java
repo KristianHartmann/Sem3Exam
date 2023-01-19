@@ -26,6 +26,9 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactoryForTest();
         EntityManager em = emf.createEntityManager();
 
+        try{
+
+
         LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
         LocalDate dateNow = LocalDate.now();
         ContactPerson contactPerson = new ContactPerson("ContactPersonName", 11111111);
@@ -60,8 +63,17 @@ public class Populator {
         em.merge(tenant2);
         rental.addTenant(tenant);
         em.merge(rental);
+        em.flush();
+        em.clear();
         em.getTransaction().commit();
+        em.close();
         System.out.println("Created Objects");
+        }catch (Exception e){
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
     }
 
     public void clearDatabase(){
@@ -89,7 +101,9 @@ public class Populator {
             em.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();
-        } finally {
+        } catch(Exception e){
+            em.getTransaction().rollback();
+        } finally{
             em.close();
         }
     }
