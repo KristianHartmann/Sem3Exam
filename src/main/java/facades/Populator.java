@@ -99,6 +99,7 @@ public class Populator {
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();
         } catch (PersistenceException e) {
+            e.printStackTrace();
             System.out.println("Didn't peform clear database");
             em.getTransaction().rollback();
             throw e;
