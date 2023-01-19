@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "tenant")
 public class Tenant {
 
     @JoinTable(name = "tenant_has_rental", joinColumns = {
