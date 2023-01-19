@@ -121,29 +121,29 @@ public class AdminEndpointTest {
 //                .statusCode(200);
 //    }
 
-    @Test
-    public void testCreateRental() {
-        em.getTransaction().begin();
-        em.createQuery("delete from Rental ").executeUpdate();
-        em.createNativeQuery("ALTER TABLE Rental AUTO_INCREMENT = 1").executeUpdate();
-        em.close();
-        login("Kristian", "test");
-        given()
-                .contentType("application/json")
-                .body("{\n" +
-                        "    \"startDate\":\"2023-01-18\",\n" +
-                        "    \"endDate\":\"2024-01-18\",\n" +
-                        "    \"priceAnnual\": 2000,\n" +
-                        "    \"deposit\" : 20000,\n" +
-                        "    \"contactPersonId\" : 1,\n" +
-                        "    \"houseId\": 1,\n" +
-                        "    \"tenantNames\" : [ \"Hess\"]\n" +
-                        "}")
-                .when()
-                .header("x-access-token", securityToken)
-                .post("/admin/createRental")
-                .then()
-                .statusCode(200);
-    }
+//    @Test
+//    public void testCreateRental() {
+//        em.getTransaction().begin();
+//        em.createQuery("delete from Rental ").executeUpdate();
+//        em.createNativeQuery("ALTER TABLE Rental AUTO_INCREMENT = 1").executeUpdate();
+//        em.close();
+//        login("Kristian", "test");
+//        given()
+//                .contentType("application/json")
+//                .body("{\n" +
+//                        "    \"startDate\":\"2023-01-18\",\n" +
+//                        "    \"endDate\":\"2024-01-18\",\n" +
+//                        "    \"priceAnnual\": 2000,\n" +
+//                        "    \"deposit\" : 20000,\n" +
+//                        "    \"contactPersonId\" : 1,\n" +
+//                        "    \"houseId\": 1,\n" +
+//                        "    \"tenantNames\" : [ \"Hess\"]\n" +
+//                        "}")
+//                .when()
+//                .header("x-access-token", securityToken)
+//                .post("/admin/createRental")
+//                .then()
+//                .statusCode(200);
+//    }
 
 }

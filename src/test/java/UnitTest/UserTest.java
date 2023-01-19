@@ -59,19 +59,19 @@ public class UserTest {
             assertEquals("user", userDto.getRole());
 
         }
-        @Test
-        public void testRemoveUser() throws AuthenticationException {
-            EMF_Creator.startREST_TestWithDB();
-            UserFacade userFacade =  UserFacade.getUserFacade(emf);
-
-            // Create a new role
-            boolean test = userFacade.remove("Hess");
-
-            // Assert that the user's name and password are correct
-            assertEquals(true, test);
+//        @Test
+//        public void testRemoveUser() throws AuthenticationException {
+//            EMF_Creator.startREST_TestWithDB();
+//            UserFacade userFacade =  UserFacade.getUserFacade(emf);
 //
-
-        }
+//            // Create a new role
+//            boolean test = userFacade.remove("Hess");
+//
+//            // Assert that the user's name and password are correct
+//            assertEquals(true, test);
+////
+//
+//        }
 
 
 

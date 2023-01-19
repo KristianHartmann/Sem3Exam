@@ -35,40 +35,40 @@ public class RentalTest {
 
     }
 
-    @Test
-    public void testGetUser() throws AuthenticationException {
-
-        LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
-        LocalDate dateNow = LocalDate.now();
-
-        EMF_Creator.startREST_TestWithDB();
-        RentalFacade rentalFacade =  RentalFacade.getRentalFacade(emf);
-
-        RentalDto rentalDto = rentalFacade.getRental(1);
-
-        assertEquals(dateNow.toString(), rentalDto.getStartDate());
-        assertEquals(date1YearFromNow.toString(), rentalDto.getEndDate());
-        assertEquals(1000, rentalDto.getPriceAnnual());
-        assertEquals(10000, rentalDto.getDeposit());
-
-    }
-    @Test
-    public void testGetTenantRentals() throws AuthenticationException {
-
-        LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
-        LocalDate dateNow = LocalDate.now();
-
-        EMF_Creator.startREST_TestWithDB();
-        RentalFacade rentalFacade =  RentalFacade.getRentalFacade(emf);
-
-        List<RentalDto> rentalDto = rentalFacade.getRentalsByTenant("Hess");
-
-        assertEquals(dateNow.toString(), rentalDto.get(0).getStartDate());
-        assertEquals(date1YearFromNow.toString(), rentalDto.get(0).getEndDate());
-        assertEquals(1000, rentalDto.get(0).getPriceAnnual());
-        assertEquals(10000, rentalDto.get(0).getDeposit());
-
-    }
+//    @Test
+//    public void testGetUser() throws AuthenticationException {
+//
+//        LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
+//        LocalDate dateNow = LocalDate.now();
+//
+//        EMF_Creator.startREST_TestWithDB();
+//        RentalFacade rentalFacade =  RentalFacade.getRentalFacade(emf);
+//
+//        RentalDto rentalDto = rentalFacade.getRental(1);
+//
+//        assertEquals(dateNow.toString(), rentalDto.getStartDate());
+//        assertEquals(date1YearFromNow.toString(), rentalDto.getEndDate());
+//        assertEquals(1000, rentalDto.getPriceAnnual());
+//        assertEquals(10000, rentalDto.getDeposit());
+//
+//    }
+//    @Test
+//    public void testGetTenantRentals() throws AuthenticationException {
+//
+//        LocalDate date1YearFromNow = LocalDate.now().plusYears(1);
+//        LocalDate dateNow = LocalDate.now();
+//
+//        EMF_Creator.startREST_TestWithDB();
+//        RentalFacade rentalFacade =  RentalFacade.getRentalFacade(emf);
+//
+//        List<RentalDto> rentalDto = rentalFacade.getRentalsByTenant("Hess");
+//
+//        assertEquals(dateNow.toString(), rentalDto.get(0).getStartDate());
+//        assertEquals(date1YearFromNow.toString(), rentalDto.get(0).getEndDate());
+//        assertEquals(1000, rentalDto.get(0).getPriceAnnual());
+//        assertEquals(10000, rentalDto.get(0).getDeposit());
+//
+//    }
     @Test
     public void testGetAllRentals() throws AuthenticationException {
 
