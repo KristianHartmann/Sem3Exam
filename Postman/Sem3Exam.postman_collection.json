@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "7670241e-d0fe-460e-8a1b-e75ab23c9110",
+		"name": "Sem3Exam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21192757"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5OTAzOTMsImlhdCI6MTY3Mzk4ODU5MywiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.-SRAu1NRnnfqknF2dJcDZjF4Oq1wMCTZZVJDD5m5rEA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/user/all",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5OTAzOTMsImlhdCI6MTY3Mzk4ODU5MywiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.-SRAu1NRnnfqknF2dJcDZjF4Oq1wMCTZZVJDD5m5rEA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Hess\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/user",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5ODQ0NTEsImlhdCI6MTY3Mzk4MjY1MSwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.5NbIzOP52bsnb1DzX5oO8BuXYu9HxE5AlOS_HS_9sP8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"Test1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/remove",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzaXRhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM3MTQ5ODcsImlhdCI6MTY3MzcxMzE4NywiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc2l0YW4ifQ.uv3vYzbc-KoHPE7wpwVHNe3zw-LlA8lfTSiKsS5USCg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Hess\",\r\n    \"password\":\"test\",\r\n    \"role\":\"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/create",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "testUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5ODMwODIsImlhdCI6MTY3Mzk4MTI4MiwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoia3Jpc3RpYW4ifQ.y6-MTSXuAvGbyO-i8JuJLlMkqJBYyyOTXGHt7uVDOVQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/user/userTest",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"userTest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"Kristian\",\r\n    \"password\" : \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tenant",
+			"item": [
+				{
+					"name": "createTenant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"KrisitanTenant\",\r\n    \"password\":\"test\",\r\n    \"name\":\"Kristian\",\r\n    \"phone\" : 11111111,\r\n    \"job\" : \"Developer\",\r\n    \"role\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/tenant/create",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"tenant",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rental",
+			"item": [
+				{
+					"name": "getRentalByID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5ODI1OTQsImlhdCI6MTY3Mzk4MDc5NCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.SZdAPXk_ToudQ0dITcsDDgb5tGMqrWT6q62eS4uE9cs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/rental/rental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"rental",
+								"rental"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTenantRentals",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5ODI1OTQsImlhdCI6MTY3Mzk4MDc5NCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.SZdAPXk_ToudQ0dITcsDDgb5tGMqrWT6q62eS4uE9cs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tentantId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/rental/tentantRental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"rental",
+								"tentantRental"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllRentals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzM5OTAzOTMsImlhdCI6MTY3Mzk4ODU5MywiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.-SRAu1NRnnfqknF2dJcDZjF4Oq1wMCTZZVJDD5m5rEA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/user/all",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "getTenantsInHouse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNTY4NzgsImlhdCI6MTY3NDA1NTA3OCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.nXyodLBRXvaladTv1YDpqIKtpCYmogFk4DgSt-pwL7U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"houseId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/tenantsInHouse",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"tenantsInHouse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRental",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNTg4NTgsImlhdCI6MTY3NDA1NzA1OCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.V-xkX63zl8nAbUOl_Q1N4xgMLgO9BlS3fXvTAAe1CzI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\":\"2023-01-18\",\r\n    \"endDate\":\"2024-01-18\",\r\n    \"priceAnnual\": 2000,\r\n    \"deposit\" : 20000,\r\n    \"contactPersonId\" : 2,\r\n    \"houseId\": 9,\r\n    \"tenantNames\" : [ \"Hess\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/createRental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"createRental"
+							],
+							"query": [
+								{
+									"key": "{{token}}",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRental",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNjMyNDQsImlhdCI6MTY3NDA2MTQ0NCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.Pb0iIUs2rRXNRSRuJURLow5fq19x-83ZdYeGqk0ixCM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\" : 9,\r\n    \"startDate\":\"2023-01-18\",\r\n    \"endDate\":\"2024-01-18\",\r\n    \"priceAnnual\": 1000,\r\n    \"deposit\" : 15000,\r\n    \"contactPersonId\" : 2,\r\n    \"houseId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/updateRental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"updateRental"
+							],
+							"query": [
+								{
+									"key": "{{token}}",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createHouse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNTgwMzUsImlhdCI6MTY3NDA1NjIzNSwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.pNye7FOWF_8r1tebQdTAQx0WB4q22couY1DdqHFMasg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cityinfoId\": 2,\r\n    \"address\":\"HouseAddressNewTest\",\r\n    \"numberOfRooms\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/createRental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"createRental"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeRental",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNTgwMzUsImlhdCI6MTY3NDA1NjIzNSwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.pNye7FOWF_8r1tebQdTAQx0WB4q22couY1DdqHFMasg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\" : 11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/removeRental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"removeRental"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTenants",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNjYyNDMsImlhdCI6MTY3NDA2NDQ0MywiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.zS-1R9rC7vTu46IC6HsdPHMNHgq19tO8IotxBZuz6DQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"rentalId\": 9,\r\n    \"tenantNames\" : [ \"Hess\", \"KristianTenant\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/updateTenants",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"updateTenants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
