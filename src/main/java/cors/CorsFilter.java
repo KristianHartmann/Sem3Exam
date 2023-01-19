@@ -23,7 +23,7 @@ import javax.ws.rs.ext.Provider;
                     "origin, content-type, accept, authorization");
             responseContext.getHeaders().add(
                     "Access-Control-Allow-Methods",
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+                    "GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD");
             responseContext.getHeaders().add(
                     "Access-Control-Allow-Headers",
                     "origin, content-type, accept, authorization, x-access-token");
