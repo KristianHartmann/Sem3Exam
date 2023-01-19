@@ -23,6 +23,7 @@ public class AdminFacade {
     HouseFacade houseFacade = HouseFacade.getHouseFacade(em.getEntityManagerFactory());
     RentalFacade rentalFacade = RentalFacade.getRentalFacade(em.getEntityManagerFactory());
     ContactPersonFacade contactPersonFacade = ContactPersonFacade.getContactPersonFacade(em.getEntityManagerFactory());
+    CityInfoFacade cityinfoFacade = CityInfoFacade.getCityinfoFacade(em.getEntityManagerFactory());
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private AdminFacade() {
@@ -116,6 +117,15 @@ public class AdminFacade {
         em.getTransaction().commit();
 
         return rental;
+    }
+    public House updateHouse(Integer houseId, String address, Integer numberOfRooms) throws AuthenticationException {
+        House house = houseFacade.getHouse(houseId);
+        house.setAddress(address);
+        house.setNumberOfRooms(numberOfRooms);
+        em.getTransaction().begin();
+        em.merge(house);
+        em.getTransaction().commit();
+        return house;
     }
 
     public Rental changeTenantsForRental(List<String> tenantNames, Integer rentalID) {

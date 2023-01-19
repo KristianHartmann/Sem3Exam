@@ -166,6 +166,24 @@ public class AdminEndpoint {
             return Response.noContent().build();
         }
     }
+    @PATCH
+    @Path("updateHouse")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed("admin")
+    public Response updateHouse(String prompt) {
+        JsonObject json = JsonParser.parseString(prompt).getAsJsonObject();
+        Integer houseId = json.get("houseId").getAsInt();
+        String address = json.get("address").getAsString();
+        Integer numberOfRooms = json.get("numberOfRooms").getAsInt();
+        try {
+            House house = adminFacade.updateHouse(houseId, address, numberOfRooms);
+            HouseDto houseDto = new HouseDto(house.getAddress(), house.getNumberOfRooms(), new CityInfoDto("Nordhavn", 2100));
+            return Response.ok(GSON.toJson(houseDto)).build();
+        } catch (Exception e) {
+            return Response.noContent().build();
+        }
+    }
 
 
 
