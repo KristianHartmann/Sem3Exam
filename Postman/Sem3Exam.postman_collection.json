@@ -440,6 +440,46 @@
 					"response": []
 				},
 				{
+					"name": "updateHouse",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "{{token}}",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNjMyNDQsImlhdCI6MTY3NDA2MTQ0NCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.Pb0iIUs2rRXNRSRuJURLow5fq19x-83ZdYeGqk0ixCM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\" : 9,\r\n    \"startDate\":\"2023-01-18\",\r\n    \"endDate\":\"2024-01-18\",\r\n    \"priceAnnual\": 1000,\r\n    \"deposit\" : 15000,\r\n    \"contactPersonId\" : 2,\r\n    \"houseId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/admin/updateRental",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"admin",
+								"updateRental"
+							],
+							"query": [
+								{
+									"key": "{{token}}",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "createHouse",
 					"request": {
 						"method": "POST",
@@ -486,13 +526,13 @@
 						"header": [
 							{
 								"key": "{{token}}",
-								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwNTgwMzUsImlhdCI6MTY3NDA1NjIzNSwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.pNye7FOWF_8r1tebQdTAQx0WB4q22couY1DdqHFMasg",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLcmlzdGlhbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2NzQwODU2NTQsImlhdCI6MTY3NDA4Mzg1NCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiS3Jpc3RpYW4ifQ.Bvs_omHm7_7wO7paXfbyMSiMamkKv9KfOdJJ__l_FGA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\" : 11\r\n}",
+							"raw": "{\r\n    \"rentalId\" : 18\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
