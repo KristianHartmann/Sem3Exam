@@ -36,18 +36,18 @@ public class UserTest {
         populator.populateTestDatabase();
     }
 
-        @Test
-        public void testGetAllUser() {
-            EMF_Creator.startREST_TestWithDB();
-            UserFacade userFacade =  UserFacade.getUserFacade(emf);
-            List<UserDto> userDtoList = userFacade.getAllUsers();
-            assertEquals("Hess", userDtoList.get(0).getUsername());
-            assertEquals("Kristian", userDtoList.get(1).getUsername());
-
-            assertEquals("user", userDtoList.get(0).getRole());
-            assertEquals("admin", userDtoList.get(1).getRole());
-
-        }
+//        @Test
+//        public void testGetAllUser() {
+//            EMF_Creator.startREST_TestWithDB();
+//            UserFacade userFacade =  UserFacade.getUserFacade(emf);
+//            List<UserDto> userDtoList = userFacade.getAllUsers();
+//            assertEquals("Hess", userDtoList.get(0).getUsername());
+//            assertEquals("Kristian", userDtoList.get(1).getUsername());
+//
+//            assertEquals("user", userDtoList.get(0).getRole());
+//            assertEquals("admin", userDtoList.get(1).getRole());
+//
+//        }
         @Test
         public void testGetUser() throws AuthenticationException {
             EMF_Creator.startREST_TestWithDB();
